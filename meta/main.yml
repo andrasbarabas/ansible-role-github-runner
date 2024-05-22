@@ -1,0 +1,27 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: github_runner
+  author: andrasbarabas
+  company: N/A
+  description: Self-hosted GitHub runner configuration role for Ansible.
+  license: license (MIT)
+  issue_tracker_url: https://github.com/andrasbarabas/ansible-role-github-runner/
+  min_ansible_version: "2.10"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+    - github
+    - actions
+    - runner
+    - self-hosted
+    - ci
+    - cd
+    - devops
+    - continuous-integration
+    - continuous-delivery

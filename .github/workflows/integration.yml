@@ -1,0 +1,69 @@
+---
+name: Integration
+
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  action-lint:
+    name: Action lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v4
+
+      - name: Install Go 1.22.3.
+        uses: actions/setup-go@v5
+        with:
+          cache: false
+          go-version: "1.22.3"
+
+      - name: Install actionlint.
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.0
+
+      - name: Run actionlint.
+        run: actionlint
+
+  ansible-lint:
+    name: Ansible lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.3"
+
+      - name: Install ansible-lint.
+        run: pip install --no-cache-dir ansible-lint==24.2.3
+
+      - name: Run yamllint.
+        run: yamllint .
+
+  yamllint:
+    name: YAML lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.3"
+
+      - name: Install yamllint.
+        run: pip install --no-cache-dir yamllint==1.35.1
+
+      - name: Run yamllint.
+        run: yamllint .
